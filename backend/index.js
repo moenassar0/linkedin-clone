@@ -1,10 +1,14 @@
-const express = require('express'); 
+const express = require('express');
+const db = require('./config/db_config');
+const apiRoutes = require('./routes/api');
+require('dotenv').config();
+
 const app = express();
 const port = 3500;
-const db = require('./config/db_config');
+
 
 app.use(express.json())
-const apiRoutes = require('./routes/api');
+
 app.use('/api', middlewareTest, apiRoutes);
 
 function middlewareTest (req, res, next) {
