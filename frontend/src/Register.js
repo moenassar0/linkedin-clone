@@ -12,12 +12,15 @@ const Register = () => {
 
     const [fname, setFname] = useState('');
     const [fnameFocus, setFnameFocus] = useState(false);
+    const [validFName, setValidFName] = useState(false);
 
     const [lname, setLname] = useState('');
     const [lnameFocus, setLnameFocus] = useState(false);
+    const [validLName, setValidLName] = useState(false);
 
     const [password, setPassword] = useState('');
     const [passwordFocus, setPasswordFocus] = useState(false);
+    const [validPassword, setValidPassword] = useState(false);
 
     const [email, setEmail] = useState('');
     const [emailFocus, setEmailFocus] = useState(false);
@@ -27,24 +30,43 @@ const Register = () => {
 
     const [success, setSuccess] = useState(false);
 
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         fnameRef.current.focus();
     }, []);
 
     useEffect(() => {
         const result = EMAIL_REGEX.test(email);
-        console.log(result);
         setValidEmail(result);
     }, [email]);
 
     useEffect(() => {
-        setErrorMessage('')
-    }, [fname, lname, email, password])
+        const fresult = fname.length > 2
+        setValidFName(fresult);
+        const lresult = lname.length > 2
+        setValidLName(lresult);
+        const presult = password.length > 7
+        setValidPassword(presult);
+    }, [fname, lname, password])
 
     const handleSubmit = async () => {
-        const response = await axios.post("./users", {fname, lname, gender: "Male", password, email}, {headers: {'Content-Type': 'application/json'}, withCredentials: true});
-        console.log(response.data);
-        setSuccess(true);
+        setLoading(true);
+        console.log(validEmail, validFName, validLName, validPassword)
+        if(!validEmail || !validFName || !validLName || !validPassword){
+            setErrorMessage('Wrong credentials');
+            setLoading(false);
+            return
+        }
+        try{
+            const response = await axios.post("./users", {fname, lname, gender: "Male", password, email}, {headers: {'Content-Type': 'application/json'}, withCredentials: true});
+            console.log(response.data);
+            setSuccess(true);
+            
+        }catch{
+            setErrorMessage('Server Error');
+        }
+        setLoading(false);
     }
 
     return(
@@ -56,7 +78,7 @@ const Register = () => {
                 <h1>Make the most out of your professional life</h1>
                 {errorMessage ?? <p ref={errorRef}>{errorMessage}</p>}
                 <div className="register-form">
-                    {success && <p>gg</p>}
+                    {success && <p>Success!</p>}
                     <div className="register-field">
                         <label htmlFor="fname">
                             First Name:
@@ -76,7 +98,7 @@ const Register = () => {
                         />
                         
                     </div>
-                    {fname.length < 3 && fname && <p className="error-instructions" id="uidnote">First name should be larger than 3 characters</p>}
+                    {!validFName && fname && <p className="error-instructions" id="uidnote">First name should be larger than 3 characters</p>}
 
                     <div className="register-field">
                         <label htmlFor="lname">
@@ -96,7 +118,7 @@ const Register = () => {
                         />
                         
                     </div>
-                    {lname.length < 3 && lname && <p className="error-instructions" id="uidnote">Last name should be larger than 3 characters</p>}
+                    {!validLName && lname && <p className="error-instructions" id="uidnote">Last name should be larger than 3 characters</p>}
 
                     <div className="register-field">
                         <label htmlFor="email">
@@ -133,8 +155,10 @@ const Register = () => {
                         />
                         
                     </div>
-                    {password.length < 7 && password && <p className="error-instructions" id="uidnote">Password should be atleast 8 characters!</p>}
+                    {!validPassword && password && <p className="error-instructions" id="uidnote">Password should be atleast 8 characters!</p>}
                     <button onClick={handleSubmit}>Register</button>
+                    
+                    {loading && <div className="loading-div"><img className='img-resize' src="../../images/loading-load.gif"></img></div>}
                 </div>
             </div>
         </>
