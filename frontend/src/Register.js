@@ -42,8 +42,9 @@ const Register = () => {
     }, [fname, lname, email, password])
 
     const handleSubmit = async () => {
+        const response = await axios.post("./users", {fname, lname, gender: "Male", password, email}, {headers: {'Content-Type': 'application/json'}, withCredentials: true});
+        console.log(response.data);
         setSuccess(true);
-        const response = await axios.post(REGISTER_URL, {});
     }
 
     return(
