@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/moenassar0/linkedin-clone/issues"
   },
-  "homepage": "https://github.com/moenassar0/linkedin-clone#readme"
+  "homepage": "https://github.com/moenassar0/linkedin-clone#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
