@@ -7,6 +7,13 @@ const createUser = async (req, res) => {
     
 }
 
+const login = async (req, res) => {
+    UserModel.find({ email: req.body.email, password: req.body.password}).exec()
+    .then((user) => res.send("User found:" + user))
+    .catch(err => res.status(400).send('Error: ' + err))
+}
+
 module.exports = {
-    createUser
+    createUser,
+    login
 }
