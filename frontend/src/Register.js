@@ -48,6 +48,7 @@ const Register = () => {
         setValidLName(lresult);
         const presult = password.length > 7
         setValidPassword(presult);
+        setErrorMessage('');
     }, [fname, lname, password])
 
     const handleSubmit = async () => {
@@ -62,9 +63,15 @@ const Register = () => {
             const response = await axios.post("./users", {fname, lname, gender: "Male", password, email}, {headers: {'Content-Type': 'application/json'}, withCredentials: true});
             console.log(response.data);
             setSuccess(true);
+            setErrorMessage('');
             
-        }catch{
-            setErrorMessage('Server Error');
+        }catch(err){
+            if(err.response.status === 409){
+                setErrorMessage('Email already taken!');
+            }
+            else{
+                setErrorMessage('Server Error');
+            }
         }
         setLoading(false);
     }
