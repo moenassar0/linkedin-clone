@@ -1,6 +1,8 @@
 import { useRef, useState, useEffect } from "react";
+import axios from "./api/axios";
 
 const EMAIL_REGEX = /.+@.+\..+/;
+const REGISTER_URL = '/users';
 
 const Register = () => {
 
@@ -39,8 +41,9 @@ const Register = () => {
         setErrorMessage('')
     }, [fname, lname, email, password])
 
-    function handleSubmit(){
+    const handleSubmit = async () => {
         setSuccess(true);
+        const response = await axios.post(REGISTER_URL, {});
     }
 
     return(
