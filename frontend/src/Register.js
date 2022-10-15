@@ -1,10 +1,13 @@
 import { useRef, useState, useEffect } from "react";
+import { BrowserRouter as Router, Link, useNavigate } from 'react-router-dom';
 import axios from "./api/axios";
 
 const EMAIL_REGEX = /.+@.+\..+/;
 const REGISTER_URL = '/users';
 
 const Register = () => {
+
+    const navigate = useNavigate();
 
     const fnameRef = useRef();
     const lnameRef = useRef();
@@ -50,6 +53,10 @@ const Register = () => {
         setValidPassword(presult);
         setErrorMessage('');
     }, [fname, lname, password])
+
+    function gotoLoginPage(){
+        navigate("/login");
+    }
 
     const handleSubmit = async () => {
         setLoading(true);
@@ -164,7 +171,7 @@ const Register = () => {
                     </div>
                     {!validPassword && password && <p className="error-instructions" id="uidnote">Password should be atleast 8 characters!</p>}
                     <button onClick={handleSubmit}>Register</button>
-                    
+                    <div className="register-field">Already have an account? <a onClick={gotoLoginPage}>Sign in</a></div>
                     {loading && <div className="loading-div"><img className='img-resize' src="../../images/loading-load.gif"></img></div>}
                 </div>
             </div>
