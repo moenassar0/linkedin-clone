@@ -25,7 +25,17 @@ const Register = () => {
     }
 
     const handleSubmit = async () => {
+        setLoading(true);
+        try{
+            const response = await axios.post("/login", {email, password}, {headers: {'Content-Type': 'application/json'}, withCredentials: true});
+            console.log(response.data);
+            setErrorMessage('');
+            
+        }catch(err){
+            setErrorMessage('Server Error');
 
+        }
+        setLoading(false);
     }
 
     return(
