@@ -23,6 +23,8 @@ const Register = () => {
 
     const [errorMessage, setErrorMessage] = useState('');
 
+    const [success, setSuccess] = useState(false);
+
     useEffect(() => {
         fnameRef.current.focus();
     }, []);
@@ -37,6 +39,10 @@ const Register = () => {
         setErrorMessage('')
     }, [fname, lname, email, password])
 
+    function handleSubmit(){
+        setSuccess(true);
+    }
+
     return(
         <>
             <div className="linkedin-logo">
@@ -46,6 +52,7 @@ const Register = () => {
                 <h1>Make the most out of your professional life</h1>
                 {errorMessage ?? <p ref={errorRef}>{errorMessage}</p>}
                 <div className="register-form">
+                    {success && <p>gg</p>}
                     <div className="register-field">
                         <label htmlFor="fname">
                             First Name:
@@ -61,10 +68,11 @@ const Register = () => {
                             aria-describedby="uidnote"
                             onFocus={() => {setFnameFocus(true)}}
                             onBlur={() => {setFnameFocus(false)}}
+                            className={fname.length < 3 && fname ? "red-border" : ""}
                         />
                         
                     </div>
-                    {fname.length < 3 && fname && <p id="uidnote">First name should be larger than 3 characters</p>}
+                    {fname.length < 3 && fname && <p className="error-instructions" id="uidnote">First name should be larger than 3 characters</p>}
 
                     <div className="register-field">
                         <label htmlFor="lname">
@@ -85,8 +93,45 @@ const Register = () => {
                         
                     </div>
                     {lname.length < 3 && lname && <p className="error-instructions" id="uidnote">Last name should be larger than 3 characters</p>}
+
+                    <div className="register-field">
+                        <label htmlFor="email">
+                            Email:
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            autoComplete="off"
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            aria-describedby="uidnote"
+                            onFocus={() => {setEmailFocus(true)}}
+                            onBlur={() => {setEmailFocus(false)}}
+                        />
+                        
+                    </div>
+                    {!validEmail && email && <p className="error-instructions" id="uidnote">Please enter a valid email</p>}
+
+                    <div className="register-field">
+                        <label htmlFor="password">
+                            Password:
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            autoComplete="off"
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            aria-invalid={password.length > 7 ? true : false}
+                            aria-describedby="uidnote"
+                            onFocus={() => {setPasswordFocus(true)}}
+                            onBlur={() => {setPasswordFocus(false)}}
+                        />
+                        
+                    </div>
+                    {password.length < 7 && password && <p className="error-instructions" id="uidnote">Password should be atleast 8 characters!</p>}
+                    <button onClick={handleSubmit}>Register</button>
                 </div>
-                
             </div>
         </>
     )

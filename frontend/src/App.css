@@ -10,6 +10,8 @@
   background-color: rgb(243, 242, 238);
 }
 
+/* Register Form */
+
 .container{
   display: flex;
   flex-direction: column;
@@ -38,20 +40,19 @@
 
 .register-field{
   display: flex;
+  flex-direction: column;
   width: 100%;
   margin-bottom: 10px;
 }
 
 .register-field input{
   height: 35px;
-  width: 50%;
+  width: 100%;
   border-radius: 5px;
-  align-self: center;
 }
 
 .register-field label{
   width: 50%;
-  align-self: center;
 }
 
 .error-instructions{
@@ -62,4 +63,9 @@
   background-color: red;
   text-align: center;
   padding: 3px 3px;
+}
+
+/* Utilities */
+.red-border{
+  border-color: red;
 }
