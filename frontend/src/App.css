@@ -74,7 +74,6 @@
 }
 
 /* Popup */
-/* POPUP */
 .popup-cover{
   position: fixed;
   top: 0;
@@ -128,6 +127,53 @@
   align-self: center;
   border-radius: 50%;
   text-decoration: none;
+}
+
+/* Feed */
+.feed-container{
+  width: 100%;
+  padding: 20px 20px;
+  background-color: grey;
+  min-height: 100vh;
+  height: auto;
+}
+
+.jobs-feed-container{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+}
+
+.jobs-feed-header{
+  display: flex;
+  width: 100%;
+  height: 65px;
+  background-color: blue;
+  text-align: center;
+}
+
+.jobs-card-container{
+  width: 100%;
+  height: 500px;
+  overflow-y: scroll;
+  background-color: white;
+}
+
+.jobs-card{
+  width: 100%;
+  height: 100px;
+  display: flex;
+}
+
+.jobs-card-img{
+  width: 20%;
+  height: 100%;
+}
+
+.jobs-card-info{
+  width: 80%;
+  height: 100%;
 }
 
 /* Utilities */
