@@ -48,6 +48,26 @@ const CompanyRegister = () => {
 
     const handleSubmit = async () => {
         setLoading(true);
+        if(!validEmail || !validCompanyTitle || !validPassword){
+            setErrorMessage('Wrong credentials');
+            setLoading(false);
+            return
+        }
+        try{
+            const response = await axios.post("./companies", {company_title: companyTitle, password, email}, {headers: {'Content-Type': 'application/json'}, withCredentials: true});
+            console.log(response.data);
+            setSuccess(true);
+            setErrorMessage('');
+            
+        }catch(err){
+            if(err.response.status === 409){
+                setErrorMessage('Email already taken!');
+            }
+            else{
+                setErrorMessage('Server Error');
+            }
+        }
+        setLoading(false);
     }
 
     return(
