@@ -24,6 +24,10 @@ const UserNavbar = () => {
                     </svg>
                     <span>Jobs</span>
                 </Link>
+                <Link className='navbar-item pointer' to="/user/profile">
+                    <img className="circle" width="24px" height="24px" src="../../images/empty_profile.png"></img>
+                    <span>Profile</span>
+                </Link>
             </div>
         </div>
     </>
