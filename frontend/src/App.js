@@ -7,6 +7,9 @@ import Feed from './Components/User/Feed';
 import CompanyRegister from './CompanyRegister';
 import { AuthProvider } from './Components/Auth';
 import UserDashboard from './Components/UserDashboard';
+import CompanyDashboard from './Components/CompanyDashboard';
+import CompanyHome from './Components/CompanyHome';
+import CompanyFeed from './Components/User/CompanyFeed';
 
 function App() {
   return (
@@ -21,6 +24,11 @@ function App() {
           <Route path="/user" element={ <UserDashboard /> }>
             <Route path="/user/editprofile" element={<EditProfile />}></Route>
             <Route path="/user/feed" element={<Feed />}></Route>
+            <Route path="/user/companies" element={<CompanyFeed />}></Route>
+          </Route>
+
+          <Route path="/company" element={ <CompanyDashboard /> }>
+            <Route path="/company/home" element={<CompanyHome />}></Route>
           </Route>
           
         </Routes>
