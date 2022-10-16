@@ -4,15 +4,9 @@ const fs = require('fs');
 
 const router = Router();
 
-const { createUser, login } = require('../controllers/UserController');
-const { createCompany } = require('../controllers/CompanyController');
+const { createUser, login, followCompany } = require('../controllers/UserController');
+const { createCompany, getAllCompanies } = require('../controllers/CompanyController');
 const { createJobOffering, getAllJobOfferings } = require('../controllers/JobOfferingController');
-
-router.post('/users', createUser);
-router.post('/login', login);
-router.post('/test', authenticateToken, (req, res) => {
-    res.status(200).send("gg worked: " + JSON.stringify(req.user));
-})
 
 //Tester
 router.post('/image', (req, res) => {
@@ -35,8 +29,18 @@ function authenticateToken(req, res, next){
     })
 }
 
+
+//User Controller
+router.post('/users', createUser);
+router.post('/login', login);
+router.post('/test', authenticateToken, (req, res) => {
+    res.status(200).send("gg worked: " + JSON.stringify(req.user));
+})
+router.post('/follow', authenticateToken, followCompany);
+
 //Company Controller
 router.post('/companies', createCompany);
+router.get('/companies', getAllCompanies);
 
 //Job Offering Controller
 router.post('/jobofferings', createJobOffering);
