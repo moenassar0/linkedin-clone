@@ -1,4 +1,5 @@
 const CompanyModel = require('../models/Company');
+const UserModel = require('../models/User');
 const jwt = require('jsonwebtoken');
 
 const createCompany = async (req, res) => {
@@ -18,7 +19,14 @@ const createCompany = async (req, res) => {
 }
 
 const getAllCompanies = async (req, res) => {
-    const companies = await CompanyModel.find();
+    const user_following = req.user[0].following;
+    const companies = await CompanyModel.find().lean();
+
+    for(let i = 0; i < companies.length; i++){
+        if(user_following.includes(companies[i]._id.toString())){
+            companies[i].following = true;
+        }
+    }
     res.status(200).send(companies);
 }
 
