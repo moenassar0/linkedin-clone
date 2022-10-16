@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Link, useNavigate } from 'react-router-dom';
 import axios from "./api/axios";
+import { useAuth } from "./Components/Auth";
 
 const REGISTER_URL = '/users';
 
@@ -16,6 +17,8 @@ const Register = () => {
 
     const [loading, setLoading] = useState(false);
 
+    const auth = useAuth();
+
     useEffect(() => {
         setErrorMessage('');
     }, [email, password])
@@ -28,8 +31,10 @@ const Register = () => {
         setLoading(true);
         try{
             const response = await axios.post("/login", {email, password}, {headers: {'Content-Type': 'application/json'}, withCredentials: true});
-            console.log(response.data);
+            console.log(response.data.company[0]);
             setErrorMessage('');
+            auth.login(response.data.company[0].company_title)
+            navigate("/user");
             
         }catch(err){
             setErrorMessage('Server Error');
