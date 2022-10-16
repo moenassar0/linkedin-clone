@@ -132,6 +132,7 @@
 /* Feed */
 .feed-container{
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
   padding: 20px 20px;
   background-color: grey;
@@ -241,21 +242,34 @@
 /* Company Feed */
 .company-card-container{
   display: flex;
-  height: 300px;
-  width: 30%
+  justify-content: flex-start;
+  align-content: flex-start;
+  height: 150px;
+  width: 25%;
+  padding: 10px 10px;
+  background-color: white;
+  border-radius: 10px;
 }
 
 .company-card-img{
-  width: 20%;
-  height: 40%;
-  padding: 10px 10px;
+  width: 30%;
+  height: 60%;
+  margin-right: 5px;
 }
 
 .company-card-info{
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 80%;
+  width: 70%;
+}
+
+.follow-btn{
+  border-radius: 15px;
+  width: 40%;
+  height: 15%;
+  color: grey;
+  background-color: white;
 }
 
 /* Utilities */
@@ -286,4 +300,33 @@
 
 .bold{
   font-weight: bolder;
+}
+
+.smaller-font{
+  font-size: smaller;
+}
+
+/* Responsitivity */
+@media only screen and (max-width: 1000px){
+  .company-card-container{
+    width: 35%;
+  }
+
+  .company-card-img{
+    width: 30%;
+  }
+  
+  .company-card-info{
+    width: 70%;
+  }
+  
+  .follow-btn{
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 650px){
+  .company-card-container{
+    width: 50%;
+  }
 }
