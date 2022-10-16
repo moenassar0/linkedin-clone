@@ -62,6 +62,7 @@ const CompanyRegister = () => {
         }catch(err){
             if(err.response.status === 409){
                 setErrorMessage('Email already taken!');
+                setSuccess(false);
             }
             else{
                 setErrorMessage('Server Error');
