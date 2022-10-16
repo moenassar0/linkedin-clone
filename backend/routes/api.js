@@ -40,7 +40,7 @@ router.post('/follow', authenticateToken, followCompany);
 
 //Company Controller
 router.post('/companies', createCompany);
-router.get('/companies', getAllCompanies);
+router.get('/companies', authenticateToken, getAllCompanies);
 
 //Job Offering Controller
 router.post('/jobofferings', createJobOffering);
