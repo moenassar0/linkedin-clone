@@ -10,6 +10,7 @@ import UserDashboard from './Components/UserDashboard';
 import CompanyDashboard from './Components/CompanyDashboard';
 import CompanyHome from './Components/CompanyHome';
 import CompanyFeed from './Components/User/CompanyFeed';
+import Profile from './Components/User/Profile';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
 
           <Route path="/user" element={ <UserDashboard /> }>
-            <Route path="/user/editprofile" element={<EditProfile />}></Route>
+            <Route path="/user/profile" element={<Profile />}></Route>
             <Route path="/user/feed" element={<Feed />}></Route>
             <Route path="/user/companies" element={<CompanyFeed />}></Route>
           </Route>
