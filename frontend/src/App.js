@@ -20,6 +20,7 @@ function App() {
 
           <Route path="/user" element={ <UserDashboard /> }>
             <Route path="/user/editprofile" element={<EditProfile />}></Route>
+            <Route path="/user/feed" element={<Feed />}></Route>
           </Route>
           
         </Routes>
