@@ -14,21 +14,25 @@ export const CompanyFeed = () => {
         setCompanies(response.data);
     }
 
+    function followCompany(company_id){
+        console.log(company_id);
+    }
+
     return(
         <>
             <div className="feed-container">
                 {companies.map((company, i) => (
-                    <div className="company-card-container">
-                    <div className="company-card-img">
-                        <img className="img-resize" src="../../images/linkedin_icon.png"></img>
+                    <div key={i} className="company-card-container">
+                        <div className="company-card-img">
+                            <img className="img-resize" src="../../images/linkedin_icon.png"></img>
+                        </div>
+                        <div className="company-card-info">
+                            <span className="bold">{company.company_title}</span>
+                            <span>Software Development</span>
+                            <span className="smaller-font grey">19,000 Followers</span>
+                            <button onClick={() => {followCompany(company._id)}} className="follow-btn">+ Follow</button>
+                        </div>
                     </div>
-                    <div className="company-card-info">
-                        <span className="bold">{company.company_title}</span>
-                        <span>Software Development</span>
-                        <span className="smaller-font grey">19,000 Followers</span>
-                        <button className="follow-btn">+ Follow</button>
-                    </div>
-                </div>
                 ))}
             </div>
         </>
