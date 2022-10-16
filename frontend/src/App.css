@@ -135,10 +135,11 @@
   flex-wrap: wrap;
   width: 100%;
   padding: 20px 20px;
-  background-color: grey;
+  background-color: #f3f2ee;
   min-height: 100vh;
   height: auto;
   align-content: flex-start;
+  justify-content: center;
 }
 
 .jobs-feed-container{
@@ -205,6 +206,7 @@
   width: 100%;
   height: 60px;
   background-color: white;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.432);
 }
 
 .navbar-icon{
@@ -238,6 +240,8 @@
   flex-direction: column;
   text-align: center;
   align-items: center;
+  text-decoration: none;
+  color: black;
 }
 
 /* Company Feed */
@@ -251,6 +255,7 @@
   background-color: white;
   border-radius: 10px;
   margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 .company-card-img{
@@ -273,6 +278,7 @@
   color: grey;
   background-color: white;
   border: 1px solid rgb(41, 41, 41);
+  cursor: pointer;
 }
 
 .follow-btn:hover{
@@ -312,6 +318,10 @@
 
 .smaller-font{
   font-size: smaller;
+}
+
+.one-edge-shadow {
+  box-shadow: 0 8px 6px -6px black;
 }
 
 /* Responsitivity */
