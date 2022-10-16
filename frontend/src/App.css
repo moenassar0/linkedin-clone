@@ -181,6 +181,47 @@
   height: 100%;
 }
 
+/* User Pages */
+.user-navbar{
+  display: flex;
+  width: 100%;
+  height: 60px;
+  background-color: white;
+}
+
+.navbar-icon{
+  margin-left: 10%;
+  padding: 10px 10px;
+}
+
+.navbar-searchbar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+  height: 100%;
+}
+
+.navbar-searchbar input{
+  width: 100%;
+  height: 25px;
+}
+
+.navbar-items{
+  display: flex;
+  width: 60%;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-item{
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
 /* Utilities */
 .red-border{
   border-color: red;
