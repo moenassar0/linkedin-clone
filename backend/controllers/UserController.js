@@ -93,8 +93,19 @@ const followCompany = async (req, res) => {
     res.status(200).send("ok" + JSON.stringify(user));
 }
 
+const unfollowCompany = async (req, res) => {
+    const company_id = req.body.company_id;
+    const user = req.user[0];
+    if(user.following){
+        user.following.pop(company_id);
+    } 
+    user.save();
+    res.status(200).send("ok" + JSON.stringify(user));
+}
+
 module.exports = {
     createUser,
     login,
-    followCompany
+    followCompany,
+    unfollowCompany
 }
