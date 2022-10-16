@@ -40,8 +40,11 @@ const login = async (req, res) => {
             console.log((JSON.stringify(user)))
             const access_token = jwt.sign(JSON.stringify(user), process.env.JWT_SECRET)
             //res.json({access_token: access_token})
-            console.log("gg");
-            res.send(access_token);
+            const response = {
+                user,
+                access_token
+            }
+            res.status(200).send(JSON.stringify(response));
         }
         //Check if user logging in is a company
         else{
@@ -67,7 +70,31 @@ const login = async (req, res) => {
     .catch(err => res.status(400).send('Error: ' + err))*/
 }
 
+const followCompany = async (req, res) => {
+    company_id = req.body.company_id;
+    let user = await UserModel.find({_id: req.user[0]._id});
+    user = user[0];
+    console.log(user[0]);
+
+    if(user.following){
+        if(user.following.includes(company_id)) {
+            res.status(200).send("ok");
+            return
+        }
+        else{
+            user.following.push(company_id);
+        }
+    } 
+    else user.following = [company_id];
+    //const update = { following: [company_id] };
+    user.save();
+    // `doc` is the document _before_ `update` was applied
+    //let doc = await UserModel.findOneAndUpdate(filter, update);
+    res.status(200).send("ok" + JSON.stringify(user));
+}
+
 module.exports = {
     createUser,
-    login
+    login,
+    followCompany
 }
