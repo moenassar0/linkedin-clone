@@ -1,10 +1,12 @@
 const { Router } = require('express');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
+
 const router = Router();
+
 const { createUser, login } = require('../controllers/UserController');
 const { createCompany } = require('../controllers/CompanyController');
-
+const { createJobOffering, getAllJobOfferings } = require('../controllers/JobOfferingController');
 
 router.post('/users', createUser);
 router.post('/login', login);
@@ -33,5 +35,10 @@ function authenticateToken(req, res, next){
     })
 }
 
+//Company Controller
 router.post('/companies', createCompany);
+
+//Job Offering Controller
+router.post('/jobofferings', createJobOffering);
+router.get('/jobofferings', getAllJobOfferings);
 module.exports = router;
