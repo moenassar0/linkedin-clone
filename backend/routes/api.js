@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const router = Router();
 
-const { createUser, login, followCompany } = require('../controllers/UserController');
+const { createUser, login, followCompany, unfollowCompany } = require('../controllers/UserController');
 const { createCompany, getAllCompanies } = require('../controllers/CompanyController');
 const { createJobOffering, getAllJobOfferings } = require('../controllers/JobOfferingController');
 
@@ -37,6 +37,7 @@ router.post('/test', authenticateToken, (req, res) => {
     res.status(200).send("gg worked: " + JSON.stringify(req.user));
 })
 router.post('/follow', authenticateToken, followCompany);
+router.post('/unfollow', authenticateToken, unfollowCompany);
 
 //Company Controller
 router.post('/companies', createCompany);
