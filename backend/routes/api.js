@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const router = Router();
 const { createUser, login } = require('../controllers/UserController');
+const { createCompany } = require('../controllers/CompanyController');
 
 
 router.post('/users', createUser);
@@ -32,4 +33,5 @@ function authenticateToken(req, res, next){
     })
 }
 
+router.post('/companies', createCompany);
 module.exports = router;
