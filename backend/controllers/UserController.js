@@ -1,4 +1,5 @@
 const UserModel = require('../models/User');
+const CompanyModel = require('../models/Company');
 const jwt = require('jsonwebtoken');
 
 const createUser = async (req, res) => {
@@ -33,6 +34,7 @@ const createUser = async (req, res) => {
 const login = async (req, res) => {
 
     try {
+        //Check if user logging in is a person
         user = await UserModel.find({ email: req.body.email, password: req.body.password}).select("+password")
         if(user.length){
             console.log((JSON.stringify(user)))
@@ -41,9 +43,20 @@ const login = async (req, res) => {
             console.log("gg");
             res.send(access_token);
         }
-        
-        else
-            res.send("User not found!");
+        //Check if user logging in is a company
+        else{
+            company = await CompanyModel.find({ email: req.body.email, password: req.body.password}).select("+password")
+            if(company.length){
+                console.log((JSON.stringify(company)))
+                const access_token = jwt.sign(JSON.stringify(company), process.env.JWT_SECRET)
+                const response = {
+                    company,
+                    access_token
+                }
+                res.send(JSON.stringify(response));
+            }
+            else res.send("User not found!");
+        }
     }
     catch(err) {
         res.status(400).send('Server error: ' + err)
