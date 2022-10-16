@@ -2,13 +2,8 @@ import './App.css';
 import EditProfile from './Components/Popups/EditProfile';
 import Register from './Register';
 import Login from './Login';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useRoutes,
-  BrowserRouter,
-} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import Feed from './Components/User/Feed';
 
 function App() {
   return (
@@ -19,6 +14,7 @@ function App() {
         <Route path="/user" element={ <EditProfile /> }>
           <Route path="/user/profile" element={<EditProfile />}></Route>
         </Route>
+        <Route path="/feed" element={<Feed />}></Route>
       </Routes>
     </div>
   );

@@ -142,20 +142,25 @@
   width: 40%;
   display: flex;
   flex-direction: column;
-  height: 500px;
 }
 
 .jobs-feed-header{
   display: flex;
   width: 100%;
   height: 65px;
-  background-color: blue;
+  background-color: rgb(0, 0, 177);
   text-align: center;
+  color: white;
+  padding: 5px 10px;
+  align-items: center;
 }
 
 .jobs-card-container{
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 500px;
+  min-height: 300px;
+  max-height: 500px;
   overflow-y: scroll;
   background-color: white;
 }
