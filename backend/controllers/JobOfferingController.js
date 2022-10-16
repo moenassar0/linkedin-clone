@@ -18,7 +18,7 @@ const createJobOffering = async (req, res) => {
 }
 
 const getAllJobOfferings = async (req, res) => {
-    const offerings = await JobOffering.find();
+    const offerings = await JobOffering.find().populate('assoc_company');
     res.send(offerings)
 }
 

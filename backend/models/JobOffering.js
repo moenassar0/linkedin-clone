@@ -14,8 +14,9 @@ const jobOfferingsSchema = mongoose.Schema({
         required: true,
         enum: ['Full-Time', 'Part-Time']
     },
-    company_id: {
+    assoc_company: {
         type: mongoose.ObjectId,
+        ref: 'Company',
         required: true
     }
 });
