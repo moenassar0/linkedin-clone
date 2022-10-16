@@ -17,6 +17,12 @@ const createCompany = async (req, res) => {
     }
 }
 
+const getAllCompanies = async (req, res) => {
+    const companies = await CompanyModel.find();
+    res.status(200).send(companies);
+}
+
 module.exports = {
-    createCompany
+    createCompany,
+    getAllCompanies
 }
