@@ -58,6 +58,10 @@ const Register = () => {
         navigate("/login");
     }
 
+    function gotoCompanyRegister(){
+        navigate("/register/company");
+    }
+
     const handleSubmit = async () => {
         setLoading(true);
         console.log(validEmail, validFName, validLName, validPassword)
@@ -172,6 +176,7 @@ const Register = () => {
                     {!validPassword && password && <p className="error-instructions" id="uidnote">Password should be atleast 8 characters!</p>}
                     <button onClick={handleSubmit}>Register</button>
                     <div className="register-field">Already have an account? <a onClick={gotoLoginPage}>Sign in</a></div>
+                    <div className="register-field"><a onClick={gotoCompanyRegister}>Register your company here</a></div>
                     {loading && <div className="loading-div"><img className='img-resize' src="../../images/loading-load.gif"></img></div>}
                 </div>
             </div>
