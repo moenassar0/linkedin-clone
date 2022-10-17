@@ -116,11 +116,19 @@ const unfollowCompany = async (req, res) => {
 }
 
 const getUser = async (req, res) => {
-
+    const user_id = req.user.user._id;
+    try{
+        const user = await UserModel.findOne({_id: user_id});
+        res.status(200).send(user)
+    }catch(err){
+        res.status(400).send(err)
+    }
+    
 }
 
 const updateUser = async (req, res) => {
-    UserModel.findByIdAndUpdate(req.body.id,{
+    const user_id = req.user.user._id;
+    UserModel.findByIdAndUpdate(user_id,{
         fname: req.body.fname,
         lname: req.body.lname,
         location: req.body.location,
@@ -135,5 +143,6 @@ module.exports = {
     login,
     followCompany,
     unfollowCompany,
-    updateUser
+    updateUser,
+    getUser
 }
