@@ -1,5 +1,6 @@
 const JobOffering = require('../models/JobOffering');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 
 const createJobOffering = async (req, res) => {
     try {
@@ -18,11 +19,53 @@ const createJobOffering = async (req, res) => {
 }
 
 const getAllJobOfferings = async (req, res) => {
-    const offerings = await JobOffering.find().populate('assoc_company');
+    const offerings = await JobOffering.find().populate('assoc_company').lean();
+    
+    //const user_id = req.user.user._id;
+    //console.log(offerings[0].applied, mongoose.Types.ObjectId(user_id))
+    //console.log(offerings[0].applied.includes(mongoose.Types.ObjectId(user_id).toString()))
+    /*console.log(user_id);
+    for(let i = 0; i < offerings.length; i++){
+        let applied = offerings[i].applied;
+        let id = (mongoose.Types.ObjectId(user_id).toString());
+        console.log(applied);
+        console.log(applied?.includes(id));
+        
+        //if(applied != undefined && applied.includes(mongoose.Types.ObjectId(user_id))){
+            //console.log("enter");
+            //offerings[i].youApplied = true;
+        //}
+    }*/
+
+    res.send(offerings)
+}
+
+const getCompanyJobOfferings = async (req, res) => {
+    console.log(req.user);
+    const company_id = req.user.company._id;
+    const offerings = await JobOffering.find({assoc_company: company_id})
+    
+    //const user_id = req.user.user._id;
+    //console.log(offerings[0].applied, mongoose.Types.ObjectId(user_id))
+    //console.log(offerings[0].applied.includes(mongoose.Types.ObjectId(user_id).toString()))
+    /*console.log(user_id);
+    for(let i = 0; i < offerings.length; i++){
+        let applied = offerings[i].applied;
+        let id = (mongoose.Types.ObjectId(user_id).toString());
+        console.log(applied);
+        console.log(applied?.includes(id));
+        
+        //if(applied != undefined && applied.includes(mongoose.Types.ObjectId(user_id))){
+            //console.log("enter");
+            //offerings[i].youApplied = true;
+        //}
+    }*/
+
     res.send(offerings)
 }
 
 module.exports = {
     createJobOffering,
-    getAllJobOfferings
+    getAllJobOfferings,
+    getCompanyJobOfferings
 }
