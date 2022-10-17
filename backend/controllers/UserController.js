@@ -74,7 +74,7 @@ const followCompany = async (req, res) => {
     company_id = req.body.company_id;
     let user = await UserModel.find({_id: req.user[0]._id});
     user = user[0];
-    
+
     if(user.following){
         if(user.following.includes(company_id)) {
             res.status(200).send("ok");
@@ -93,13 +93,19 @@ const followCompany = async (req, res) => {
 }
 
 const unfollowCompany = async (req, res) => {
-    company_id = req.body.company_id;
-    let user = await UserModel.find({_id: req.user[0]._id});
-    user = user[0];
-    if(user.following){
-        user.following.pop(company_id);
-    } 
-    user.save();
+    
+    const company_id = req.body.company_id;
+    console.log(company_id);
+    //let user = await UserModel.find({_id: req.user[0]._id});
+    //user.updateOne({ $pull: { fruits: { $in: [ "apples", "oranges" ] }, vegetables: "carrots" } }
+    
+
+    //user = user[0];
+    let user = await UserModel.updateOne( {_id: req.user[0]._id}, { $pull: { following: company_id } } )
+    //if(user.following){
+      //  user.following.pop(company_id);
+    //} 
+    //user.save();
     res.status(200).send("ok" + JSON.stringify(user));
 }
 
