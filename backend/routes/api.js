@@ -1,20 +1,12 @@
 const { Router } = require('express');
 const jwt = require('jsonwebtoken');
-const fs = require('fs');
 
 const router = Router();
 
-const { createUser, login, followCompany, unfollowCompany, updateUser, getUser } = require('../controllers/UserController');
+const { createUser, login, followCompany, unfollowCompany, updateUser, getUser, uploadImage } = require('../controllers/UserController');
 const { createCompany, getAllCompanies } = require('../controllers/CompanyController');
 const { createJobOffering, getAllJobOfferings } = require('../controllers/JobOfferingController');
 const { refreshTokenUser } = require('../controllers/JWTController');
-
-//Tester
-router.post('/image', (req, res) => {
-    let data = req.body.data;
-    let buff = Buffer.from(data, 'base64');
-    fs.writeFileSync('stack-abuse-logo-out.png', buff);
-})
 
 function authenticateToken(req, res, next){
     const authHeader = req.headers['authorization'];
@@ -43,6 +35,7 @@ router.post('/follow', authenticateToken, followCompany);
 router.post('/unfollow', authenticateToken, unfollowCompany);
 router.post('/update', authenticateToken, updateUser);
 router.get('/user', authenticateToken, getUser);
+router.post('/uploadimg', authenticateToken, uploadImage);
 
 //Company Controller
 router.post('/companies', createCompany);
