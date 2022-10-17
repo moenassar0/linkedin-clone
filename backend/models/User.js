@@ -23,7 +23,9 @@ const userSchema = mongoose.Schema({
         required: true,
         select: false
     },
-    following: [{ type : mongoose.ObjectId, ref: 'Company' }]
+    following: [{ type : mongoose.ObjectId, ref: 'Company' }],
+    location: {type: String},
+    status: {type: String}
 });
 
 const model = mongoose.model('User', userSchema);
