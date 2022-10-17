@@ -7,7 +7,40 @@ const Profile = () => {
 
     const [editProfileButton, setEditProfileButton] = useState(false);
     const [profile, setProfile] = useState([]);
+    const [baseImage, setBaseImage] = useState('');
+
     let headers = {headers:{'Authorization' : "Bearer " + localStorage.getItem("token")}};
+
+    async function handleChange(e) {
+        const file = e.target.files[0];
+        const base64 = await convertBase64(file);
+        //setBaseImage();
+        uplodeImage(base64);
+    };
+
+    async function uplodeImage(base64){
+        const base64split = base64.split(",");
+        let word = base64split[1];
+        const response = await axios.post('/uploadimg', {data: word}, headers);
+        
+        console.log(response);
+        fetchProfile()
+    }
+    
+    const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+
+        fileReader.onload = () => {
+        resolve(fileReader.result);
+        };
+
+        fileReader.onerror = (error) => {
+        reject(error);
+        };
+    });
+    };
     
     useEffect(() => {
         fetchProfile()
@@ -30,20 +63,25 @@ const Profile = () => {
                 <div className='profile-cover-container'>
                     <div className='profile-cover'>
                     <div className='profile-image'>
-                        <img className='img-resize circle' src="../../images/linkedin_icon.png"></img>
+                        <img className='img-resize circle' src={process.env.PUBLIC_URL + '/images/' + profile._id + '.jpg'}></img>
                     </div>
                     </div>
                 </div>
                 <div className='profile-info'>
                     <div className="profile-name-edit">
                         <span className='bold'>{profile.fname + " " + profile.lname}</span>
-                        <button onClick={() => {editProfile()}}>Edit</button>
+                        <button className='edit-picture-button' onClick={() => {editProfile()}}>Edit</button>
                     </div>
                     <span className='profile-employment'>{profile.status}</span>
                     <span className='profile-location grey'>{profile.location}</span>
-                    <button className='pointer'>Open CV</button>
+                    <div className="profile-buttons">
+                        <label htmlFor="edit-picture" className="edit-picture-button">Edit Picture<input type="file" id="edit-picture" className='hidden' onChange={(e) => {handleChange(e)}}/></label>
+                        <button className='edit-picture-button pointer'>Open CV</button>
+                    </div>
                 </div>
             </div>
+            
+            
         </div>
     </>
   )
