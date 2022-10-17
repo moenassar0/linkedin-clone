@@ -1,10 +1,24 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import EditProfile from '../Popups/EditProfile';
+import axios from '../../api/axios';
 
 const Profile = () => {
 
     const [editProfileButton, setEditProfileButton] = useState(false);
+    const [profile, setProfile] = useState([]);
+    let headers = {headers:{'Authorization' : "Bearer " + localStorage.getItem("token")}};
+    
+    useEffect(() => {
+        fetchProfile()
+    }, [])
+
+    async function fetchProfile() {
+        const response = await axios.get('/user', headers);
+        console.log(response.data)
+        setProfile(response.data);
+    }
+
     function editProfile(){
         setEditProfileButton(true);
     }
@@ -22,11 +36,11 @@ const Profile = () => {
                 </div>
                 <div className='profile-info'>
                     <div className="profile-name-edit">
-                        <span className='bold'>Mohamad Nassar</span>
+                        <span className='bold'>{profile.fname + " " + profile.lname}</span>
                         <button onClick={() => {editProfile()}}>Edit</button>
                     </div>
-                    <span className='profile-employment'>Student</span>
-                    <span className='profile-location grey'>Beirut, Lebanon</span>
+                    <span className='profile-employment'>{profile.status}</span>
+                    <span className='profile-location grey'>{profile.location}</span>
                     <button className='pointer'>Open CV</button>
                 </div>
             </div>
