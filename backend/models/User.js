@@ -25,7 +25,8 @@ const userSchema = mongoose.Schema({
     },
     following: [{ type : mongoose.ObjectId, ref: 'Company' }],
     location: {type: String},
-    status: {type: String}
+    status: {type: String},
+    picture_url: {type: String}
 });
 
 const model = mongoose.model('User', userSchema);
