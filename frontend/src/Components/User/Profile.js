@@ -14,7 +14,10 @@ const Profile = () => {
             </div>
 
             <div className='profile-info'>
-                <span className='profile-name bold'>Mohamad Nassar</span>
+                <div className="profile-name-edit">
+                    <span className='bold'>Mohamad Nassar</span>
+                    <button>Edit</button>
+                </div>
                 <span className='profile-employment'>Student</span>
                 <span className='profile-location grey'>Beirut, Lebanon</span>
                 <button className='pointer'>Open CV</button>
