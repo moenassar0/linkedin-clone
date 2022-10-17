@@ -4,26 +4,35 @@ export const CompanyFeed = () => {
 
     const [companies, setCompanies] = useState([]);
     const [user, setUser] = useState([]);
-    const headers = {headers:{'Authorization' : "Bearer " + localStorage.getItem("token")}};
+    const [currCompanyID, setCurrCompanyID] = useState('');
+    let headers = {headers:{'Authorization' : "Bearer " + localStorage.getItem("token")}};
 
     useEffect(() => {
         fetchCompanies()
     }, [])
 
+    function refreshHeaders(){
+        headers = {headers:{'Authorization' : "Bearer " + localStorage.getItem("token")}};
+    }
     async function fetchCompanies() {
         const response = await axios.get('/companies', headers);
         console.log(response.data)
         setCompanies(response.data);
     }
 
-    async function followCompany(company_id){
+    async function followCompany(company_id, name){
+        console.log(name);
         const response = await axios.post('/follow', {company_id}, headers);
         fetchCompanies();
+        const response2 = await axios.post('/refresh', {}, headers);
+        localStorage.setItem("token", response2.data.access_token);
+        refreshHeaders();
     }
 
-    async function unfollowCompany(company_id){
-        const response = await axios.post('/unfollow', {company_id}, headers);
-        console.log(response);
+    async function unfollowCompany(id, name){
+        console.log(name);
+        const response = await axios.post('/unfollow', {company_id: id}, headers);
+        //console.log(response);
         fetchCompanies();
     }
 
@@ -38,12 +47,12 @@ export const CompanyFeed = () => {
                         <div className="company-card-info">
                             <span className="bold">{company.company_title}</span>
                             <span>Software Development</span>
-                            <span className="smaller-font grey">19,000 Followers</span>
+                            <span className="smaller-font grey"></span>
                             {company.following 
                             ? 
-                            <button onClick={() => {unfollowCompany(company._id)}} className="follow-btn">UnFollow</button>
+                            <button onClick={() => {unfollowCompany(company._id, company.company_title)}} className="follow-btn">UnFollow</button>
                             : 
-                            <button onClick={() => {followCompany(company._id)}} className="follow-btn">+ Follow</button>}
+                            <button onClick={() => {followCompany(company._id, company.company_title)}} className="follow-btn">+ Follow</button>}
                         </div>
                     </div>
                 ))}
