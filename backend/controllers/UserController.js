@@ -1,5 +1,6 @@
 const UserModel = require('../models/User');
 const CompanyModel = require('../models/Company');
+const JobOfferingModel = require('../models/JobOffering');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 
@@ -51,10 +52,10 @@ const login = async (req, res) => {
         }
         //Check if user logging in is a company
         else{
-            company = await CompanyModel.find({ email: req.body.email, password: req.body.password}).select("+password")
-            if(company.length){
+            company = await CompanyModel.findOne({ email: req.body.email, password: req.body.password}).select("+password")
+            if(company){
                 console.log((JSON.stringify(company)))
-                const access_token = jwt.sign(JSON.stringify(company), process.env.JWT_SECRET, {
+                const access_token = jwt.sign({company}, process.env.JWT_SECRET, {
                     expiresIn: '10h'
                 })
                 const response = {
@@ -155,6 +156,21 @@ const uploadImage = async (req, res) => {
     }
 }
 
+const applyToJob = async (req, res) => {
+    try{
+        const user_id = req.user.user._id;
+        const jobOfferingID = req.body.jobOfferingID;
+        //const jobOffering = await JobOfferingModel.findByIdAndUpdate(jobOfferingID, 
+            //{
+               // picture_url: process.env.PICTURE_URL + '/' + user_id + '.jpg'
+            //})
+        const jobOffering = await JobOfferingModel.updateOne( {_id: jobOfferingID}, { $push: { applied: user_id } } )
+        res.status(200).send("Offering applied to: " + jobOffering)
+    }catch(err){
+        res.status(400).send("Error from server: " + err)
+    }
+}
+
 module.exports = {
     createUser,
     login,
@@ -162,5 +178,6 @@ module.exports = {
     unfollowCompany,
     updateUser,
     getUser,
-    uploadImage
+    uploadImage,
+    applyToJob
 }
