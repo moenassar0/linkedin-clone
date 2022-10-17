@@ -7,7 +7,7 @@ const app = express();
 const port = 3500;
 
 
-app.use(express.json())
+app.use(express.json({ limit: '200mb' }))
 
 app.use('/api', middlewareTest, apiRoutes);
 
