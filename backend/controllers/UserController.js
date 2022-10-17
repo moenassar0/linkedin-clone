@@ -35,10 +35,12 @@ const login = async (req, res) => {
 
     try {
         //Check if user logging in is a person
-        user = await UserModel.find({ email: req.body.email, password: req.body.password}).select("+password")
-        if(user.length){
+        user = await UserModel.findOne({ email: req.body.email, password: req.body.password}).select("+password")
+        if(user){
             console.log((JSON.stringify(user)))
-            const access_token = jwt.sign(JSON.stringify(user), process.env.JWT_SECRET)
+            const access_token = jwt.sign({user}, process.env.JWT_SECRET, {
+                expiresIn: '10h'
+            })
             //res.json({access_token: access_token})
             const response = {
                 user,
@@ -51,7 +53,9 @@ const login = async (req, res) => {
             company = await CompanyModel.find({ email: req.body.email, password: req.body.password}).select("+password")
             if(company.length){
                 console.log((JSON.stringify(company)))
-                const access_token = jwt.sign(JSON.stringify(company), process.env.JWT_SECRET)
+                const access_token = jwt.sign(JSON.stringify(company), process.env.JWT_SECRET, {
+                    expiresIn: '10h'
+                })
                 const response = {
                     company,
                     access_token
@@ -72,8 +76,9 @@ const login = async (req, res) => {
 
 const followCompany = async (req, res) => {
     company_id = req.body.company_id;
-    let user = await UserModel.find({_id: req.user[0]._id});
-    user = user[0];
+    let user_id = req.user.user._id;
+    let user = await UserModel.findOne({_id: user_id});
+    //user = user[0];
 
     if(user.following){
         if(user.following.includes(company_id)) {
@@ -95,18 +100,23 @@ const followCompany = async (req, res) => {
 const unfollowCompany = async (req, res) => {
     
     const company_id = req.body.company_id;
-    console.log(company_id);
+    let user_id = req.user.user._id;
+    console.log("the one that breaks" + user_id);
     //let user = await UserModel.find({_id: req.user[0]._id});
     //user.updateOne({ $pull: { fruits: { $in: [ "apples", "oranges" ] }, vegetables: "carrots" } }
     
 
     //user = user[0];
-    let user = await UserModel.updateOne( {_id: req.user[0]._id}, { $pull: { following: company_id } } )
+    let user = await UserModel.updateOne( {_id: user_id}, { $pull: { following: company_id } } )
     //if(user.following){
       //  user.following.pop(company_id);
     //} 
     //user.save();
     res.status(200).send("ok" + JSON.stringify(user));
+}
+
+const getUser = async (req, res) => {
+
 }
 
 module.exports = {
