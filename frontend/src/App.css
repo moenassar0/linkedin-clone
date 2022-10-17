@@ -286,6 +286,51 @@
   border: 1px solid rgb(0, 0, 0);
 }
 
+/* Profile */
+.main-container{
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  justify-content: center;
+  background-color: #f3f2ee;
+}
+
+.profile-container{
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  background: white;
+  border-radius: 10px;
+}
+
+.profile-cover-container{
+  width: 100%;
+  height: auto;
+}
+
+.profile-cover{
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background-color: blue; 
+
+}
+
+.profile-image{
+  width: 100px;
+  height: 100px;
+  z-index: 5;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top:0;
+  left:0;
+  border: 2px solid white;
+}
+
+
 /* Utilities */
 .red-border{
   border-color: red;
@@ -322,6 +367,10 @@
 
 .one-edge-shadow {
   box-shadow: 0 8px 6px -6px black;
+}
+
+.circle{
+  border-radius: 50%;
 }
 
 /* Responsitivity */
