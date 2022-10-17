@@ -119,9 +119,21 @@ const getUser = async (req, res) => {
 
 }
 
+const updateUser = async (req, res) => {
+    UserModel.findByIdAndUpdate(req.body.id,{
+        fname: req.body.fname,
+        lname: req.body.lname,
+        location: req.body.location,
+        status: req.body.status
+    })
+    .then((user)=>res.send(user))
+    .catch((err)=>res.status(400).send(err))
+}
+
 module.exports = {
     createUser,
     login,
     followCompany,
-    unfollowCompany
+    unfollowCompany,
+    updateUser
 }
