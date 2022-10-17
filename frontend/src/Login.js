@@ -31,13 +31,13 @@ const Register = () => {
         setLoading(true);
         try{
             const response = await axios.post("/login", {email, password}, {headers: {'Content-Type': 'application/json'}, withCredentials: true});
-            console.log(response.data.company[0]);
+            console.log(response.data);
             setErrorMessage('');
-            auth.login(response.data.company[0].company_title)
+            localStorage.setItem('token', response.data.access_token);
             navigate("/user");
             
         }catch(err){
-            setErrorMessage('Server Error');
+            setErrorMessage('Server Error: ' + err);
 
         }
         setLoading(false);
