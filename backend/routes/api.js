@@ -4,9 +4,10 @@ const fs = require('fs');
 
 const router = Router();
 
-const { createUser, login, followCompany, unfollowCompany } = require('../controllers/UserController');
+const { createUser, login, followCompany, unfollowCompany, updateUser, getUser } = require('../controllers/UserController');
 const { createCompany, getAllCompanies } = require('../controllers/CompanyController');
 const { createJobOffering, getAllJobOfferings } = require('../controllers/JobOfferingController');
+const { refreshTokenUser } = require('../controllers/JWTController');
 
 //Tester
 router.post('/image', (req, res) => {
@@ -30,6 +31,8 @@ function authenticateToken(req, res, next){
 }
 
 
+
+
 //User Controller
 router.post('/users', createUser);
 router.post('/login', login);
@@ -38,6 +41,8 @@ router.post('/test', authenticateToken, (req, res) => {
 })
 router.post('/follow', authenticateToken, followCompany);
 router.post('/unfollow', authenticateToken, unfollowCompany);
+router.post('/update', authenticateToken, updateUser);
+router.get('/user', authenticateToken, getUser);
 
 //Company Controller
 router.post('/companies', createCompany);
@@ -46,4 +51,7 @@ router.get('/companies', authenticateToken, getAllCompanies);
 //Job Offering Controller
 router.post('/jobofferings', createJobOffering);
 router.get('/jobofferings', getAllJobOfferings);
+
+//JWT
+router.post('/refresh', authenticateToken, refreshTokenUser);
 module.exports = router;
