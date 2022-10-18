@@ -34,7 +34,10 @@ const Register = () => {
             console.log(response.data);
             setErrorMessage('');
             localStorage.setItem('token', response.data.access_token);
-            navigate("/user");
+            if(response.data.company != undefined){
+                navigate("/company");
+            }
+            else navigate("/user");
             
         }catch(err){
             setErrorMessage('Server Error: ' + err);
