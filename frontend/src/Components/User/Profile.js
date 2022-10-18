@@ -18,10 +18,26 @@ const Profile = () => {
         uplodeImage(base64);
     };
 
+    async function handleCV(e){
+        const file = e.target.files[0];
+        const base64 = await convertBase64(file);
+        //setBaseImage();
+        uplodeCV(base64);
+    }
+
     async function uplodeImage(base64){
         const base64split = base64.split(",");
         let word = base64split[1];
         const response = await axios.post('/uploadimg', {data: word}, headers);
+        
+        console.log(response);
+        fetchProfile()
+    }
+
+    async function uplodeCV(base64){
+        const base64split = base64.split(",");
+        let word = base64split[1];
+        const response = await axios.post('/uploadcv', {data: word}, headers);
         
         console.log(response);
         fetchProfile()
@@ -76,7 +92,8 @@ const Profile = () => {
                     <span className='profile-location grey'>{profile.location}</span>
                     <div className="profile-buttons">
                         <label htmlFor="edit-picture" className="edit-picture-button">Edit Picture<input type="file" id="edit-picture" className='hidden' onChange={(e) => {handleChange(e)}}/></label>
-                        <button className='edit-picture-button pointer'>Open CV</button>
+                        <label htmlFor="edit-cv" className="edit-picture-button">Edit CV<input type="file" id="edit-cv" className='hidden' onChange={(e) => {handleCV(e)}}/></label>
+                        <button onClick={() => {window.open(process.env.PUBLIC_URL + '/images/' + profile._id + '.pdf', '_blank').focus();}} className='edit-picture-button pointer'>Open CV</button>
                     </div>
                 </div>
             </div>
