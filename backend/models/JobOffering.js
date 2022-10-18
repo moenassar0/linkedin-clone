@@ -18,7 +18,8 @@ const jobOfferingsSchema = mongoose.Schema({
         type: mongoose.ObjectId,
         ref: 'Company',
         required: true
-    }
+    },
+    applied: [{ type : mongoose.ObjectId, ref: 'User' }]
 });
 
 const model = mongoose.model('JobOffering', jobOfferingsSchema);
