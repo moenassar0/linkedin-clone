@@ -10,6 +10,7 @@ import UserDashboard from './Components/UserDashboard';
 import CompanyDashboard from './Components/CompanyDashboard';
 import CompanyHome from './Components/CompanyHome';
 import CompanyFeed from './Components/User/CompanyFeed';
+import CompanyJobs from './Components/CompanyJobs';
 import Profile from './Components/User/Profile';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
 
           <Route path="/company" element={ <CompanyDashboard /> }>
             <Route path="/company/home" element={<CompanyHome />}></Route>
+            <Route path="/company/jobs" element={<CompanyJobs />}></Route>
           </Route>
           
         </Routes>
