@@ -43,7 +43,7 @@ const getAllJobOfferings = async (req, res) => {
 const getCompanyJobOfferings = async (req, res) => {
     console.log(req.user);
     const company_id = req.user.company._id;
-    const offerings = await JobOffering.find({assoc_company: company_id})
+    const offerings = await JobOffering.find({assoc_company: company_id}).populate('applied')
     
     //const user_id = req.user.user._id;
     //console.log(offerings[0].applied, mongoose.Types.ObjectId(user_id))
