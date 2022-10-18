@@ -58,7 +58,7 @@ export const Companyjobs = () => {
                         <span>{applicant.fname + " " + applicant.lname}</span>
                         <span>{applicant.status}</span>
                         <span className="grey">Location: {applicant.location}</span>
-                        <button>CV</button>
+                        <button onClick={() => {window.open(process.env.PUBLIC_URL + '/images/' + applicant._id + '.pdf', '_blank').focus();}} className='edit-picture-button pointer'>Open CV</button>
                     </div>
                 </div>
                     ))}
