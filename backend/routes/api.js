@@ -3,9 +3,9 @@ const jwt = require('jsonwebtoken');
 
 const router = Router();
 
-const { createUser, login, followCompany, unfollowCompany, updateUser, getUser, uploadImage } = require('../controllers/UserController');
+const { createUser, login, followCompany, unfollowCompany, updateUser, getUser, uploadImage, applyToJob, uploadCV} = require('../controllers/UserController');
 const { createCompany, getAllCompanies } = require('../controllers/CompanyController');
-const { createJobOffering, getAllJobOfferings } = require('../controllers/JobOfferingController');
+const { createJobOffering, getAllJobOfferings, getCompanyJobOfferings} = require('../controllers/JobOfferingController');
 const { refreshTokenUser } = require('../controllers/JWTController');
 
 function authenticateToken(req, res, next){
@@ -36,6 +36,8 @@ router.post('/unfollow', authenticateToken, unfollowCompany);
 router.post('/update', authenticateToken, updateUser);
 router.get('/user', authenticateToken, getUser);
 router.post('/uploadimg', authenticateToken, uploadImage);
+router.post('/apply', authenticateToken, applyToJob);
+router.post('/uploadcv', authenticateToken, uploadCV);
 
 //Company Controller
 router.post('/companies', createCompany);
@@ -43,7 +45,8 @@ router.get('/companies', authenticateToken, getAllCompanies);
 
 //Job Offering Controller
 router.post('/jobofferings', createJobOffering);
-router.get('/jobofferings', getAllJobOfferings);
+router.get('/jobofferings', authenticateToken, getAllJobOfferings);
+router.get('/company/jobofferings', authenticateToken, getCompanyJobOfferings);
 
 //JWT
 router.post('/refresh', authenticateToken, refreshTokenUser);
