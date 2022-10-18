@@ -4,13 +4,14 @@ export const Feed = () => {
 
     const [jobOfferings, setJobOfferings] = useState([]);
     const [currentJobOffer, setCurrentJobOffer] = useState([]);
+    const headers = {headers:{'Authorization' : "Bearer " + localStorage.getItem("token")}};
 
     useEffect(() => {
         fetchJobOfferings()
     }, [])
 
     async function fetchJobOfferings() {
-        const response = await axios.get('/jobofferings');
+        const response = await axios.get('/jobofferings', headers);
         console.log(response.data)
         setJobOfferings(response.data);
     }
@@ -18,6 +19,11 @@ export const Feed = () => {
     function setJob(jobOffering){
         setCurrentJobOffer(jobOffering);
         console.log(jobOffering._id);
+    }
+
+    async function applyToJob(){
+        const response = await axios.post('/apply', {jobOfferingID: currentJobOffer}, headers);
+        console.log(response)
     }
 
     return(
@@ -42,7 +48,13 @@ export const Feed = () => {
                     </div>
                 </div>
                 <div className="job-expanded">
-                {currentJobOffer.length == 0 ? "Click on one of the job offers" : currentJobOffer.job_title}
+                {currentJobOffer.length == 0 ? "Click on one of the job offers" : <>
+                <span className="job-title">{currentJobOffer.job_title}</span>
+                <span>{currentJobOffer.schedule}</span>
+                <span>{currentJobOffer.location}</span>
+                <span>Company: {currentJobOffer.assoc_company?.company_title}</span>
+                <button onClick={() => {applyToJob()}} className="edit-picture-button">Apply</button>
+                </>}
                 </div>
             </div>
         </>
