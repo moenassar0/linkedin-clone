@@ -12,11 +12,9 @@ const CompanyNavbar = () => {
                 <input type="text"></input>
             </div>
             <div className='navbar-items'>
-                <Link className='navbar-item pointer' to="/company/home">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" width="24" height="24" focusable="false">
-                        <path d="M23 9v2h-2v7a3 3 0 01-3 3h-4v-6h-4v6H6a3 3 0 01-3-3v-7H1V9l11-7z"></path>
-                    </svg>
-                    <span>Home</span>
+                <Link className='navbar-item pointer' to="/company/profile">
+                    <img className="circle" width="24px" height="24px" src="../../images/empty_profile.png"></img>
+                    <span>Company Profile</span>
                 </Link>
                 <Link className='navbar-item pointer' to="/company/jobs">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" width="24" height="24" focusable="false">
