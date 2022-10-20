@@ -155,15 +155,12 @@ const updateUser = async (req, res) => {
 
 const uploadImage = async (req, res) => {
     try{
-        const user_id = req.user.user._id;
+        //Check if user or company is uploading their picture
+        const user_id = req.user.company? req.user.company._id : req.user.user._id;
         let data = req.body.data;
         let buff = Buffer.from(data, 'base64');
-        const user = await UserModel.findByIdAndUpdate(user_id, 
-            {
-                picture_url: process.env.PICTURE_URL + '/' + user_id + '.jpg'
-            })
-        .then((user) => fs.writeFileSync(process.env.UPLOAD_PICTURE_URL + '/' + user._id + '.jpg', buff))
-        res.status(200).send("uploaded picture")
+        fs.writeFileSync(process.env.UPLOAD_PICTURE_URL + '/' + user_id + '.jpg', buff)
+        res.status(200).send("uploaded picture: ");
     }catch(err){
         res.status(400).send("Error from server: " + err)
     }
