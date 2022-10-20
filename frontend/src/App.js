@@ -11,6 +11,7 @@ import CompanyDashboard from './Components/CompanyDashboard';
 import CompanyHome from './Components/CompanyHome';
 import CompanyFeed from './Components/User/CompanyFeed';
 import CompanyJobs from './Components/CompanyJobs';
+import CompanyProfile from './Components/CompanyProfile';
 import Profile from './Components/User/Profile';
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
           </Route>
 
           <Route path="/company" element={ <CompanyDashboard /> }>
-            <Route path="/company/home" element={<CompanyHome />}></Route>
+            <Route path="/company/profile" element={<CompanyProfile />}></Route>
             <Route path="/company/jobs" element={<CompanyJobs />}></Route>
           </Route>
           
