@@ -20,9 +20,12 @@ const CompanyProfile = () => {
     async function uplodeImage(base64){
         const base64split = base64.split(",");
         let word = base64split[1];
-        const response = await axios.post('/uploadimg', {data: word}, headers);
-        
-        console.log(response);
+        try{
+            const response = await axios.post('/uploadimg', {data: word}, headers);
+            console.log(response);
+        }catch(err){
+            console.log("Error" + err);
+        }
         fetchProfile()
     }
 
