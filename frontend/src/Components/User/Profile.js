@@ -84,17 +84,21 @@ const Profile = () => {
                     </div>
                 </div>
                 <div className='profile-info'>
-                    <div className="profile-name-edit">
+                    <div className="profile-name-edit padding-5">
                         <span className='bold'>{profile.fname + " " + profile.lname}</span>
                         <button className='edit-picture-button' onClick={() => {editProfile()}}>Edit</button>
                     </div>
-                    <span className='profile-employment'>{profile.status}</span>
-                    <span className='profile-location grey'>{profile.location}</span>
-                    <div className="profile-buttons">
+                    <span className='profile-employment padding-5'>{"Employement Status: " + profile.status}</span>
+                    <span className='profile-location grey padding-5'>{"Current Location: " + profile.location}</span>
+                    <div className='profile-seperator'></div>
+                </div>
+                <div className="profile-buttons">
                         <label htmlFor="edit-picture" className="edit-picture-button">Edit Picture<input type="file" id="edit-picture" className='hidden' onChange={(e) => {handleChange(e)}}/></label>
+                    </div>
+                    <div className='profile-seperator'></div>
+                    <div className="profile-buttons">
                         <label htmlFor="edit-cv" className="edit-picture-button">Edit CV<input type="file" id="edit-cv" className='hidden' onChange={(e) => {handleCV(e)}}/></label>
                         <button onClick={() => {window.open(process.env.PUBLIC_URL + '/images/' + profile._id + '.pdf', '_blank').focus();}} className='edit-picture-button pointer'>Open CV</button>
-                    </div>
                 </div>
             </div>
         </div>
