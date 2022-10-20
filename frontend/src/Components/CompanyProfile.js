@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import axios from '../../api/axios';
+import axios from '../api/axios';
 
 const CompanyProfile = () => {
 
@@ -65,7 +65,28 @@ const CompanyProfile = () => {
     }
   return (
     <>
-
+        <div className='main-container'>
+            <div className='profile-container'>
+                <div className='profile-cover-container'>
+                    <div className='profile-cover'>
+                    <div className='profile-image'>
+                        <img className='img-resize circle' src={process.env.PUBLIC_URL + '/images/' + profile._id + '.jpg'}></img>
+                    </div>
+                    </div>
+                </div>
+                <div className='profile-info'>
+                    <div className="profile-name-edit">
+                        <span className='bold'>{profile.company_title}</span>
+                        <button className='edit-picture-button' onClick={() => {editProfile()}}>Edit</button>
+                    </div>
+                    <span className='profile-employment'>{profile.status}</span>
+                    <span className='profile-location grey'>{profile.location}</span>
+                    <div className="profile-buttons">
+                        <label htmlFor="edit-picture" className="edit-picture-button">Edit Picture<input type="file" id="edit-picture" className='hidden' onChange={(e) => {handleChange(e)}}/></label>
+                    </div>
+                </div>
+            </div>
+        </div>
     </>
   )
 }
