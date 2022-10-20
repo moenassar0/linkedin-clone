@@ -36,7 +36,7 @@ export const Feed = () => {
                     {jobOfferings.map((item, i) => (
                         <div key={i} className="jobs-card">
                         <div className="jobs-card-img">
-                            <img className='img-resize' src="../../images/linkedin_icon.png"></img>
+                            <img className='img-resize' src={process.env.PUBLIC_URL + '/images/' + item.assoc_company?._id + '.jpg'}></img>
                         </div>
                         <div className="jobs-card-info">
                             <span className="bold blue pointer" onClick={() => {setJob(item)}}>{item.job_title}</span>
