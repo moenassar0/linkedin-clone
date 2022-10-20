@@ -118,14 +118,27 @@ const unfollowCompany = async (req, res) => {
 }
 
 const getUser = async (req, res) => {
-    const user_id = req.user.user._id;
-    try{
-        const user = await UserModel.findOne({_id: user_id});
-        res.status(200).send(user)
-    }catch(err){
-        res.status(400).send(err)
+    if(req.user.user){
+        const user_id = req.user.user._id;
+        try{
+            const user = await UserModel.findOne({_id: user_id});
+            res.status(200).send(user)
+        }catch(err){
+            res.status(400).send(err)
+        }
     }
-    
+    else if(req.user.company){
+        const user_id = req.user.company._id;
+        try{
+            const user = await CompanyModel.findOne({_id: user_id});
+            res.status(200).send(user)
+        }catch(err){
+            res.status(400).send(err)
+        }
+    }
+    else{
+        res.status(400);
+    }
 }
 
 const updateUser = async (req, res) => {
