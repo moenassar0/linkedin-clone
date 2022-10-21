@@ -48,8 +48,16 @@
 .register-field input{
   height: 35px;
   width: 100%;
-  border-radius: 5px;
-  padding: 10px 16px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.register-field input:focus{
+  border: 2px solid grey;
+  outline: none !important;
 }
 
 .register-field label{
