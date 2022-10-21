@@ -14,7 +14,8 @@ const companySchema = mongoose.Schema({
         type: String,
         required: true,
         select: false
-    }
+    },
+    picture_url: {type: String}
 });
 
 const model = mongoose.model('Company', companySchema);
