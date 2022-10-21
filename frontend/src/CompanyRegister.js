@@ -19,6 +19,8 @@ const CompanyRegister = () => {
     const [email, setEmail] = useState('');
     const [validEmail, setValidEmail] = useState(false);
 
+    const [field, setField] = useState('');
+
     const [errorMessage, setErrorMessage] = useState('');
 
     const [success, setSuccess] = useState(false);
@@ -48,13 +50,13 @@ const CompanyRegister = () => {
 
     const handleSubmit = async () => {
         setLoading(true);
-        if(!validEmail || !validCompanyTitle || !validPassword){
+        if(!validEmail || !validCompanyTitle || !validPassword || field === 0){
             setErrorMessage('Wrong credentials');
             setLoading(false);
             return
         }
         try{
-            const response = await axios.post("./companies", {company_title: companyTitle, password, email}, {headers: {'Content-Type': 'application/json'}, withCredentials: true});
+            const response = await axios.post("./companies", {field, company_title: companyTitle, password, email}, {headers: {'Content-Type': 'application/json'}, withCredentials: true});
             console.log(response.data);
             setSuccess(true);
             setErrorMessage('');
@@ -108,7 +110,18 @@ const CompanyRegister = () => {
                         />
                     </div>
                     {!validEmail && email && <p className="error-instructions" id="uidnote">Please enter a valid email</p>}
-
+                    <div className="register-field">
+                        <label htmlFor="field">
+                            Your Company's Field:
+                        </label>
+                        <select id="status" onChange={(e) => setField(e.target.value)}>
+                            <option value="0">--- Field ---</option>
+                            <option value="Software Development">Software Development</option>
+                            <option value="Game Development">Game Development</option>
+                            <option value="E-Learning Providers">E-Learning Providers</option>
+                            <option value="Business Consulting and Services">Business Consulting and Services</option>
+                        </select>
+                    </div>
                     <div className="register-field">
                         <label htmlFor="password">
                             Password:
@@ -120,7 +133,6 @@ const CompanyRegister = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        
                     </div>
                     {!validPassword && password && <p className="error-instructions" id="uidnote">Password should be atleast 8 characters!</p>}
                     <button className="edit-picture-button" onClick={handleSubmit}>Register</button>
