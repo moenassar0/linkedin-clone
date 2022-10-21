@@ -1,12 +1,14 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from '../api/axios';
+import AddJobOffering from './Popups/AddJobOffering';
 
 const CompanyProfile = () => {
 
     const [editProfileButton, setEditProfileButton] = useState(false);
     const [profile, setProfile] = useState([]);
     const [baseImage, setBaseImage] = useState('');
+    const [addJobOfferingButton, setAddJobOfferingButon] = useState(false);
 
     let headers = {headers:{'Authorization' : "Bearer " + localStorage.getItem("token")}};
 
@@ -26,15 +28,6 @@ const CompanyProfile = () => {
         }catch(err){
             console.log("Error" + err);
         }
-        fetchProfile()
-    }
-
-    async function uplodeCV(base64){
-        const base64split = base64.split(",");
-        let word = base64split[1];
-        const response = await axios.post('/uploadcv', {data: word}, headers);
-        
-        console.log(response);
         fetchProfile()
     }
     
@@ -68,6 +61,8 @@ const CompanyProfile = () => {
     }
   return (
     <>
+        <AddJobOffering trigger={addJobOfferingButton} setTrigger={setAddJobOfferingButon}>
+        </AddJobOffering>
         <div className='main-container'>
             <div className='profile-container'>
                 <div className='profile-cover-container'>
@@ -77,10 +72,10 @@ const CompanyProfile = () => {
                     </div>
                     </div>
                 </div>
-                <div className='profile-info'>
+                <div className='profile-info padding-5'>
                     <div className="profile-name-edit">
                         <span className='bold'>{profile.company_title}</span>
-                        <button className='edit-picture-button' onClick={() => {editProfile()}}>Edit</button>
+                        <button className='edit-picture-button' onClick={() => {setAddJobOfferingButon(true)}}>Add Job Offering</button>
                     </div>
                     <span className='profile-employment'>{profile.status}</span>
                     <span className='profile-location grey'>{profile.location}</span>
