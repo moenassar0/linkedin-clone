@@ -5,7 +5,8 @@ export const Feed = () => {
     const [jobOfferings, setJobOfferings] = useState([]);
     const [currentJobOffer, setCurrentJobOffer] = useState([]);
     const headers = {headers:{'Authorization' : "Bearer " + localStorage.getItem("token")}};
-
+    //const [url, setURL] = useState('');
+    let url = '';
     useEffect(() => {
         fetchJobOfferings()
     }, [])
@@ -16,6 +17,18 @@ export const Feed = () => {
         setJobOfferings(response.data);
     }
 
+    function CheckImage(path) {
+        axios.create({
+            baseURL: 'http://localhost:3000/'})
+          .get(path)
+          .then(() => {
+            return true;
+          })
+          .catch(() => {
+            return false;
+          });
+      }
+
     function setJob(jobOffering){
         setCurrentJobOffer(jobOffering);
         console.log(jobOffering._id);
@@ -24,6 +37,15 @@ export const Feed = () => {
     async function applyToJob(){
         const response = await axios.post('/apply', {jobOfferingID: currentJobOffer}, headers);
         console.log(response)
+    }
+
+    function findImage(item){
+        if(!CheckImage(process.env.PUBLIC_URL + '/images/' + item.assoc_company?._id + '.jpg')){
+            url = (process.env.PUBLIC_URL + '/images/' + item.assoc_company?._id + '.jpg')
+        }else{
+            url = "../../images/linkedin_icon.png";
+        } 
+        //item.assoc_company?._id ? 
     }
 
     return(
@@ -36,7 +58,8 @@ export const Feed = () => {
                     {jobOfferings.map((item, i) => (
                         <div key={i} className="jobs-card">
                         <div className="jobs-card-img">
-                            <img className='img-resize' src={process.env.PUBLIC_URL + '/images/' + item.assoc_company?._id + '.jpg'}></img>
+                            
+                            <img className='img-resize' src={item.assoc_company?.picture_url + ""}></img>
                         </div>
                         <div className="jobs-card-info">
                             <span className="bold blue pointer" onClick={() => {setJob(item)}}>{item.job_title}</span>
