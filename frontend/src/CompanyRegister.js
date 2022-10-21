@@ -123,9 +123,8 @@ const CompanyRegister = () => {
                         
                     </div>
                     {!validPassword && password && <p className="error-instructions" id="uidnote">Password should be atleast 8 characters!</p>}
-                    <button onClick={handleSubmit}>Register</button>
-                    <div className="register-field">Already have an account? <a onClick={gotoLoginPage}>Sign in</a></div>
-                    <div className="register-field"><a onClick={gotoCompanyRegister}>Register your company here</a></div>
+                    <button className="edit-picture-button" onClick={handleSubmit}>Register</button>
+                    <div className="register-field highlight"><a onClick={gotoLoginPage}>Already have an account? Sign in</a></div>
                     {loading && <div className="loading-div"><img className='img-resize' src="../../images/loading-load.gif"></img></div>}
                 </div>
             </div>
