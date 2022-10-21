@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 
 const createJobOffering = async (req, res) => {
     try {
+        if(req.user.company){
+            req.body.assoc_company = req.user.company._id;
+        }
         insertResult = await JobOffering.create(req.body)
         res.send("Job Offering created:" + insertResult)
     }
