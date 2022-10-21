@@ -58,8 +58,7 @@ export const Feed = () => {
                     {jobOfferings.map((item, i) => (
                         <div key={i} className="jobs-card">
                         <div className="jobs-card-img">
-                            
-                            <img className='img-resize' src={item.assoc_company?.picture_url + ""}></img>
+                            <img className='img-resize' src={item.assoc_company?.picture_url}></img>
                         </div>
                         <div className="jobs-card-info">
                             <span className="bold blue pointer" onClick={() => {setJob(item)}}>{item.job_title}</span>
@@ -71,13 +70,19 @@ export const Feed = () => {
                     </div>
                 </div>
                 <div className="job-expanded">
-                {currentJobOffer.length == 0 ? "Click on one of the job offers" : <>
-                <span className="job-title">{currentJobOffer.job_title}</span>
-                <span>{currentJobOffer.schedule}</span>
-                <span>{currentJobOffer.location}</span>
-                <span>Company: {currentJobOffer.assoc_company?.company_title}</span>
-                <button onClick={() => {applyToJob()}} className="edit-picture-button">Apply</button>
-                </>}
+                {currentJobOffer.length == 0 ? "Click on one of the job offers" :
+                <div className="jobs-card">
+                    <div className="jobs-card-img">
+                        <img className='img-resize' src={currentJobOffer.assoc_company?.picture_url}></img>
+                    </div>
+                    <div className="jobs-card-info">
+                        <span className="job-title">{currentJobOffer.job_title}</span>
+                        <span>{currentJobOffer.schedule}</span>
+                        <span>{currentJobOffer.location}</span>
+                        <span>Company: {currentJobOffer.assoc_company?.company_title}</span>
+                        <button onClick={() => {applyToJob()}} className="edit-picture-button">Apply</button>
+                    </div>
+                </div>}
                 </div>
             </div>
         </>
