@@ -447,6 +447,11 @@
   display: none;
 }
 
+.highlight:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /* Responsitivity */
 @media only screen and (max-width: 1000px){
   .company-card-container{
