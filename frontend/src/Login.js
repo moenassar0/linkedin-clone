@@ -79,8 +79,8 @@ const Register = () => {
                             required
                         />
                     </div>
-                    <button onClick={handleSubmit}>Login</button>
-                    <div className="register-field">Don't have an account?<a onClick={gotoRegisterPage}>Sign up</a></div>
+                    <button className="edit-picture-button" onClick={handleSubmit}>Login</button>
+                    <div className="register-field highlight"><a onClick={gotoRegisterPage}>Don't have an account? Sign up</a></div>
                     {loading && <div className="loading-div"><img className='img-resize' src="../../images/loading-load.gif"></img></div>}
                 </div>
             </div>
