@@ -42,7 +42,7 @@ export const CompanyFeed = () => {
                 {companies.map((company, i) => (
                     <div key={i} className="company-card-container">
                         <div className="company-card-img">
-                            <img className="img-resize" src="../../images/linkedin_icon.png"></img>
+                            <img className="img-resize" src={company.picture_url ? company.picture_url : "../../images/empty_profile.png"}></img>
                         </div>
                         <div className="company-card-info">
                             <span className="bold">{company.company_title}</span>
