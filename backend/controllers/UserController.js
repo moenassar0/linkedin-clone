@@ -157,9 +157,21 @@ const uploadImage = async (req, res) => {
     try{
         //Check if user or company is uploading their picture
         const user_id = req.user.company? req.user.company._id : req.user.user._id;
-        let data = req.body.data;
+        const url = process.env.UPLOAD_PICTURE_URL + '/' + user_id + '.jpg';
+        if(req.user.company){
+            CompanyModel.updateOne({_id: user_id}, {$set: {
+                
+                picture_url: process.env.PICTURE_URL + '/' + user_id + '.jpg'
+            }},).then(() => {console.log(process.env.PICTURE_URL + '/' + user_id + '.jpg');})
+        }else if(req.user.user){
+            UserModel.updateOne({_id: user_id}, {$set: {
+                picture_url: process.env.PICTURE_URL + '/' + user_id + '.jpg'
+            }})
+        }
+        
+        const data = req.body.data;
         let buff = Buffer.from(data, 'base64');
-        fs.writeFileSync(process.env.UPLOAD_PICTURE_URL + '/' + user_id + '.jpg', buff)
+        fs.writeFileSync(url, buff)
         res.status(200).send("uploaded picture: ");
     }catch(err){
         res.status(400).send("Error from server: " + err)
