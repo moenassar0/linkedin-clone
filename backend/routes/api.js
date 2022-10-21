@@ -44,7 +44,7 @@ router.post('/companies', createCompany);
 router.get('/companies', authenticateToken, getAllCompanies);
 
 //Job Offering Controller
-router.post('/jobofferings', createJobOffering);
+router.post('/jobofferings', authenticateToken, createJobOffering);
 router.get('/jobofferings', authenticateToken, getAllJobOfferings);
 router.get('/company/jobofferings', authenticateToken, getCompanyJobOfferings);
 
